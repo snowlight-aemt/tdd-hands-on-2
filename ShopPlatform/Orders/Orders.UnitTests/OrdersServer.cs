@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +24,9 @@ public sealed class OrdersServer : TestServer
     public static OrdersServer Create()
     {
         OrdersServer server =  (OrdersServer) new Factory().Server;
+        using IServiceScope scope = server.Services.CreateScope();
+        OrdersDbContext context = scope.ServiceProvider.GetRequiredService<OrdersDbContext>();
+        context.Database.Migrate();
         return server;
     }
 

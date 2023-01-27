@@ -2,4 +2,9 @@
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/DotNetCliExePath/@EntryValue">/usr/local/share/dotnet/dotnet</s:String>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">/usr/local/share/dotnet/sdk/6.0.405/MSBuild.dll</s:String>
 	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967294</s:Int64>
-	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentBuildToolPaths/=_002Fusr_002Flocal_002Fshare_002Fdotnet_002Fsdk_002F6_002E0_002E405_002FMSBuild_002Edll/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentBuildToolPaths/=_002Fusr_002Flocal_002Fshare_002Fdotnet_002Fsdk_002F6_002E0_002E405_002FMSBuild_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=813c331d_002Dc151_002D475a_002D8c8e_002D3015c55bd6e9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Sut_correctly_sets_event_time" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::DEA5BB9E-654F-491B-A4A6-FB2E5D336B8D::net6.0::Orders.api.orders.handle.item_shipped.Post_spec.Sut_correctly_sets_event_time&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
