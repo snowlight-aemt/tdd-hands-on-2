@@ -70,7 +70,7 @@ public sealed class OrdersController : Controller
             return NotFound();
         }
 
-        if (order.Status == OrderStatus.AwaitingPayment)
+        if (order.Status != OrderStatus.Pending)
         {
             return BadRequest();
         }
@@ -81,7 +81,7 @@ public sealed class OrdersController : Controller
         return Ok();
     }
 
-    [HttpPost("handle/bank-transder-payment-completed")]
+    [HttpPost("handle/bank-transfer-payment-completed")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     public async Task<IActionResult> HandleBankTransferPaymentCompleted(
