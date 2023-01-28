@@ -95,7 +95,7 @@ public sealed class OrdersController : Controller
             return NotFound();
         }
 
-        if (order.Status == OrderStatus.Pending)
+        if (order.Status == OrderStatus.Pending || order.Status == OrderStatus.AwaitingShipment || order.Status == OrderStatus.Completed)
         {
             return BadRequest();
         }
