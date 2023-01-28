@@ -19,7 +19,9 @@ public sealed class OrdersController : Controller
         {
             if (shopId == null)
             {
-                return await context.Orders.AsNoTracking().ToListAsync();
+                return await context.Orders
+                    .AsNoTracking()
+                    .ToListAsync();
             }
             else
             {
@@ -30,11 +32,21 @@ public sealed class OrdersController : Controller
             }
         }
         else
-        {   
-            return await context.Orders
-                .AsNoTracking()
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
+        {
+            if (shopId == null)
+            {
+                return await context.Orders
+                    .AsNoTracking()
+                    .Where(x => x.UserId == userId)
+                    .ToListAsync();
+            }
+            else
+            {
+                return await context.Orders
+                    .AsNoTracking()
+                    .Where(x => x.UserId == userId && x.ShopId == shopId)
+                    .ToListAsync(); 
+            }
         }
     }
 

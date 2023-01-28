@@ -8,7 +8,7 @@ namespace Orders.api.orders;
 public class Get_spec
 {
     [Fact]
-    public async void Sut_correctly_applies_user_filter()
+    public async Task Sut_correctly_applies_user_filter()
     {
         // Arrange
         OrdersServer server = OrdersServer.Create();
@@ -42,7 +42,7 @@ public class Get_spec
     }
 
     [Fact]
-    public async void Sut_correctly_filters_orders_by_shop()
+    public async Task Sut_correctly_filters_orders_by_shop()
     {
         //arrange
         OrdersServer server = OrdersServer.Create();
@@ -71,5 +71,34 @@ public class Get_spec
         //assert
         orders!.Should().OnlyContain(o => o.ShopId.Equals(shopId));
     }
-    
+
+    [Fact]
+    public async Task Sut_correctly_filters_orders_by_user_and_shop()
+    {
+        // Arrange
+        HttpClient client = OrdersServer.Create().CreateClient();
+
+        Guid userId = Guid.NewGuid();
+        Guid shopId = Guid.NewGuid();
+        
+        List<PlaceOrder> commands = new()
+        {
+            new PlaceOrder(userId, Guid.NewGuid(), Guid.NewGuid(), 100000),
+            new PlaceOrder(userId, shopId, Guid.NewGuid(), 100000),
+            new PlaceOrder(Guid.NewGuid(), shopId, Guid.NewGuid(), 100000),
+        };
+
+        await Task.WhenAll(from command in commands
+                            let id = Guid.NewGuid()
+                            let uri = $"api/orders/{id}/place-order"
+                            select client.PostAsJsonAsync(uri, command));
+
+        // Act
+
+        HttpResponseMessage response = await client.GetAsync($"api/orders?user-id={userId}&shop-id={shopId}");
+        Order[]? orders = await response.Content.ReadFromJsonAsync<Order[]>();
+        
+        // Assert
+        orders.Should().OnlyContain(x => x.UserId.Equals(userId) && x.ShopId.Equals(shopId));
+    }
 }
