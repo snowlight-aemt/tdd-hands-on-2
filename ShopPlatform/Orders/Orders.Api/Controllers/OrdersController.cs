@@ -15,39 +15,11 @@ public sealed class OrdersController : Controller
         [FromQuery(Name = "shop-id")] Guid? shopId,
         [FromServices] OrdersDbContext context)
     {
-        if (userId == null)
-        {
-            if (shopId == null)
-            {
-                return await context.Orders
-                    .AsNoTracking()
-                    .ToListAsync();
-            }
-            else
-            {
-                return await context.Orders
-                    .AsNoTracking()
-                    .Where(x => x.ShopId == shopId)
-                    .ToListAsync(); 
-            }
-        }
-        else
-        {
-            if (shopId == null)
-            {
-                return await context.Orders
-                    .AsNoTracking()
-                    .Where(x => x.UserId == userId)
-                    .ToListAsync();
-            }
-            else
-            {
-                return await context.Orders
-                    .AsNoTracking()
-                    .Where(x => x.UserId == userId && x.ShopId == shopId)
-                    .ToListAsync(); 
-            }
-        }
+        return await context.Orders
+            .AsNoTracking()
+            .FilterByUser(userId)
+            .FilterByShop(shopId)
+            .ToListAsync();
     }
 
     [HttpGet("{id}")]
