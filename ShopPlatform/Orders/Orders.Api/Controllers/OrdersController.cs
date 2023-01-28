@@ -95,6 +95,11 @@ public sealed class OrdersController : Controller
             return NotFound();
         }
 
+        if (order.Status == OrderStatus.Pending)
+        {
+            return BadRequest();
+        }
+
         order.Status = OrderStatus.AwaitingShipment;
         order.PaidAtUtc = listenedEvent.EventTimeUtc;
         await context.SaveChangesAsync();
