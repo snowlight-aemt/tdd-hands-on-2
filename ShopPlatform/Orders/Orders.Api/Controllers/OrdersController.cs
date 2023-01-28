@@ -70,6 +70,11 @@ public sealed class OrdersController : Controller
             return NotFound();
         }
 
+        if (order.Status == OrderStatus.AwaitingPayment)
+        {
+            return BadRequest();
+        }
+
         order.Status = OrderStatus.AwaitingPayment;
         order.StartedAtUtc = DateTime.UtcNow;
         await context.SaveChangesAsync();
