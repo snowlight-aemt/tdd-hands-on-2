@@ -28,8 +28,4 @@
     <ProjectReference Include="..\Orders.Api\Orders.Api.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="api.oders" />
-  </ItemGroup>
-
 </Project>
