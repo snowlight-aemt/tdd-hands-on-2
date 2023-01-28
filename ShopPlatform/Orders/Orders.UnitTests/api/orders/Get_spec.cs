@@ -39,5 +39,37 @@ public class Get_spec
         
         // Assert
         orders!.Should().OnlyContain(o => o.UserId.Equals(userId));
-    } 
+    }
+
+    [Fact]
+    public async void Sut_correctly_filters_orders_by_shop()
+    {
+        //arrange
+        OrdersServer server = OrdersServer.Create();
+        HttpClient client = server.CreateClient();
+
+        Guid userId = Guid.NewGuid();
+        Guid itemId = Guid.NewGuid();
+        decimal price = 100000;
+        List<PlaceOrder> commands = new()
+        {
+            new PlaceOrder(userId, Guid.NewGuid(), itemId, price),
+            new PlaceOrder(userId, Guid.NewGuid(), itemId, price),
+            new PlaceOrder(userId, Guid.NewGuid(), itemId, price),
+        };
+
+        await Task.WhenAll(from command in commands
+                            let id = Guid.NewGuid()
+                            let uri = $"api/orders/{id}/place-order"
+                            select client.PostAsJsonAsync(uri, command));
+        Guid shopId = commands[0].ShopId;
+        // act
+        string queryUri = $"api/orders?shop-id={shopId}";
+        HttpResponseMessage response = await client.GetAsync(queryUri);
+        Order[]? orders = await response.Content.ReadFromJsonAsync<Order[]>();
+
+        //assert
+        orders!.Should().OnlyContain(o => o.ShopId.Equals(shopId));
+    }
+    
 }
