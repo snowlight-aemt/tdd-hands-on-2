@@ -1,8 +1,5 @@
 using System.Net;
-using System.Net.Http.Json;
 using FluentAssertions;
-using Orders.Commands;
-using Orders.Events;
 using Xunit;
 
 namespace Orders.api.orders.id.start_order;
@@ -13,18 +10,13 @@ public class Post_specs
     public async void Sut_returns_BadRequest_if_order_already_started()
     {
         //arrange
-        HttpClient client = OrdersServer.Create().CreateClient();
+        OrdersServer server = OrdersServer.Create();
         Guid orderId = Guid.NewGuid();
-        
-        PlaceOrder placeOrder = new (Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), 100000);
-        await client.PostAsJsonAsync($"api/orders/{orderId}/place-order", placeOrder);
-        
-        string startUrl = $"api/orders/{orderId}/start-order";
-        StartOrder startOrder = new ();
-        await client.PostAsJsonAsync(startUrl, startOrder);
-        
+        await server.PlaceOrder(orderId);
+        await server.StartOrder(orderId);
+
         //act
-        HttpResponseMessage response = await client.PostAsJsonAsync(startUrl, startOrder);
+        HttpResponseMessage response = await server.StartOrder(orderId);
         
         //assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -34,21 +26,15 @@ public class Post_specs
     public async Task Sut_returns_BadRequest_if_order_payment_completed()
     {
         //arrange
-        HttpClient client = OrdersServer.Create().CreateClient();
+        OrdersServer server = OrdersServer.Create();
         Guid orderId = Guid.NewGuid();
-        
-        PlaceOrder placeOrder = new (Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), 100000);
-        await client.PostAsJsonAsync($"api/orders/{orderId}/place-order", placeOrder);
-        
-        string startUrl = $"api/orders/{orderId}/start-order";
-        StartOrder startOrder = new ();
-        await client.PostAsJsonAsync(startUrl, startOrder);
 
-        BankTransferPaymentCompleted bankTransferPaymentCompleted = new (orderId, DateTime.UtcNow);
-        await client.PostAsJsonAsync($"api/orders/handle/bank-transfer-payment-completed", bankTransferPaymentCompleted);
-        
+        await server.PlaceOrder(orderId);
+        await server.StartOrder(orderId);
+        await server.BankTransferPaymentCompleted(orderId);
+
         //act
-        HttpResponseMessage response = await client.PostAsJsonAsync(startUrl, startOrder);
+        HttpResponseMessage response = await server.StartOrder(orderId);
         
         //assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -58,24 +44,16 @@ public class Post_specs
     public async Task Sut_returns_BadRequest_if_order_completed()
     {
         //arrange
-        HttpClient client = OrdersServer.Create().CreateClient();
+        OrdersServer server = OrdersServer.Create();
         Guid orderId = Guid.NewGuid();
-        
-        PlaceOrder placeOrder = new (Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), 100000);
-        await client.PostAsJsonAsync($"api/orders/{orderId}/place-order", placeOrder);
-        
-        string startUrl = $"api/orders/{orderId}/start-order";
-        StartOrder startOrder = new ();
-        await client.PostAsJsonAsync(startUrl, startOrder);
 
-        BankTransferPaymentCompleted bankTransferPaymentCompleted = new (orderId, DateTime.UtcNow);
-        await client.PostAsJsonAsync($"api/orders/handle/bank-transfer-payment-completed", bankTransferPaymentCompleted);
-
-        ItemShipped itemShipped = new (orderId, DateTime.UtcNow);
-        await client.PostAsJsonAsync($"api/orders/handle/item-shipped", itemShipped);
+        await server.PlaceOrder(orderId);
+        await server.StartOrder(orderId);
+        await server.BankTransferPaymentCompleted(orderId);
+        await server.HandleItemShipped(orderId);
         
         //act
-        HttpResponseMessage response = await client.PostAsJsonAsync(startUrl, startOrder);
+        HttpResponseMessage response = await server.StartOrder(orderId);
         
         //assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);

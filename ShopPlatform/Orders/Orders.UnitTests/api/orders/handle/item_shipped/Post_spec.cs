@@ -17,20 +17,11 @@ public class Post_spec
         using HttpClient client = server.CreateClient();
 
         Guid orderId = Guid.NewGuid();
+
+        await server.PlaceOrder(orderId);
+        await server.StartOrder(orderId);
+        await server.BankTransferPaymentCompleted(orderId);
         
-        PlaceOrder placeOrder = new(
-            UserId: Guid.NewGuid(),
-            ShopId: Guid.NewGuid(),
-            ItemId: Guid.NewGuid(),
-            Price: 100000);
-        await client.PostAsJsonAsync($"api/orders/{orderId}/place-order", placeOrder);
-
-        StartOrder startOrder = new();
-        await client.PostAsJsonAsync($"api/orders/{orderId}/start-order", startOrder);
-
-        BankTransferPaymentCompleted paymentCompleted = new(
-            orderId, EventTimeUtc: DateTime.UtcNow);
-        await client.PostAsJsonAsync($"api/orders/handle/bank-transder-payment-completed", paymentCompleted);
         // Act
         DateTime eventTimeUtc = DateTime.UtcNow;
         ItemShipped itemShipped = new(orderId, EventTimeUtc:eventTimeUtc);

@@ -1,8 +1,5 @@
 using System.Net;
-using System.Net.Http.Json;
 using FluentAssertions;
-using Orders.Commands;
-using Orders.Events;
 using Xunit;
 
 namespace Orders.api.orders.handle.bank_transfer_payment_completed;
@@ -13,17 +10,13 @@ public class Post_spec
     public async Task Sut_returns_BadRequest_if_order_not_started()
     {
         // arrange
-        HttpClient client = OrdersServer.Create().CreateClient();
-
+        OrdersServer server = OrdersServer.Create();
         Guid orderId = Guid.NewGuid();
-        PlaceOrder placeOrder = new (Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), 100000);
-        await client.PostAsJsonAsync($"api/orders/{orderId}/place-order", placeOrder);
+        await server.PlaceOrder(orderId);
         
         // act
-        BankTransferPaymentCompleted bankTransferPaymentCompleted = new (orderId, EventTimeUtc: DateTime.UtcNow);
-        string paymentUri = "api/orders/handle/bank-transfer-payment-completed";
-        HttpResponseMessage response = await client.PostAsJsonAsync(paymentUri, bankTransferPaymentCompleted);
-        
+        HttpResponseMessage response = await server.BankTransferPaymentCompleted(orderId);
+
         // assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
@@ -32,22 +25,16 @@ public class Post_spec
     public async Task Sut_returns_BadRequest_if_payment_already_completed()
     {
         // arrange
-        HttpClient client = OrdersServer.Create().CreateClient();
+        OrdersServer server = OrdersServer.Create();
 
         Guid orderId = Guid.NewGuid();
-        PlaceOrder placeOrder = new (Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), 100000);
-        await client.PostAsJsonAsync($"api/orders/{orderId}/place-order", placeOrder);
         
-        string startUrl = $"api/orders/{orderId}/start-order";
-        StartOrder startOrder = new ();
-        await client.PostAsJsonAsync(startUrl, startOrder);
-
-        string paymentUri = $"api/orders/handle/bank-transfer-payment-completed";
-        BankTransferPaymentCompleted bankTransferPaymentCompleted = new (orderId, DateTime.UtcNow);
-        await client.PostAsJsonAsync(paymentUri, bankTransferPaymentCompleted);
+        await server.PlaceOrder(orderId);
+        await server.StartOrder(orderId);
+        await server.BankTransferPaymentCompleted(orderId);
         
         // act
-        HttpResponseMessage response = await client.PostAsJsonAsync(paymentUri, bankTransferPaymentCompleted);
+        HttpResponseMessage response = await server.BankTransferPaymentCompleted(orderId);
 
         // assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -57,26 +44,17 @@ public class Post_spec
     public async Task Sut_returns_BadRequest_if_order_completed()
     {
         // arrange
-        HttpClient client = OrdersServer.Create().CreateClient();
+        OrdersServer server = OrdersServer.Create();
 
         Guid orderId = Guid.NewGuid();
-        PlaceOrder placeOrder = new (Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), 100000);
-        await client.PostAsJsonAsync($"api/orders/{orderId}/place-order", placeOrder);
-        
-        string startUrl = $"api/orders/{orderId}/start-order";
-        StartOrder startOrder = new ();
-        await client.PostAsJsonAsync(startUrl, startOrder);
 
-        string paymentUri = "api/orders/handle/bank-transfer-payment-completed";
-        BankTransferPaymentCompleted bankTransferPaymentCompleted = new (orderId, EventTimeUtc: DateTime.UtcNow);
-        await client.PostAsJsonAsync(paymentUri, bankTransferPaymentCompleted);
-
-        string shippedUri = "api/orders/handle/item-shipped";
-        ItemShipped itemShipped = new (orderId, EventTimeUtc: DateTime.UtcNow);
-        await client.PostAsJsonAsync(shippedUri, itemShipped);
+        await server.PlaceOrder(orderId);
+        await server.StartOrder(orderId);
+        await server.BankTransferPaymentCompleted(orderId);
+        await server.HandleItemShipped(orderId);
         
         // act
-        HttpResponseMessage response = await client.PostAsJsonAsync(paymentUri, bankTransferPaymentCompleted);
+        HttpResponseMessage response = await server.BankTransferPaymentCompleted(orderId);
 
         // assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
