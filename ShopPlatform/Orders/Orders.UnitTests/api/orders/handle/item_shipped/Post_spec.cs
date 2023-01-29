@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http.Features;
@@ -17,20 +18,11 @@ public class Post_spec
         using HttpClient client = server.CreateClient();
 
         Guid orderId = Guid.NewGuid();
+
+        await server.PlaceOrder(orderId);
+        await server.StartOrder(orderId);
+        await server.BankTransferPaymentCompleted(orderId);
         
-        PlaceOrder placeOrder = new(
-            UserId: Guid.NewGuid(),
-            ShopId: Guid.NewGuid(),
-            ItemId: Guid.NewGuid(),
-            Price: 100000);
-        await client.PostAsJsonAsync($"api/orders/{orderId}/place-order", placeOrder);
-
-        StartOrder startOrder = new();
-        await client.PostAsJsonAsync($"api/orders/{orderId}/start-order", startOrder);
-
-        BankTransferPaymentCompleted paymentCompleted = new(
-            orderId, EventTimeUtc: DateTime.UtcNow);
-        await client.PostAsJsonAsync($"api/orders/handle/bank-transder-payment-completed", paymentCompleted);
         // Act
         DateTime eventTimeUtc = DateTime.UtcNow;
         ItemShipped itemShipped = new(orderId, EventTimeUtc:eventTimeUtc);
@@ -40,5 +32,40 @@ public class Post_spec
         HttpResponseMessage response = await client.GetAsync($"api/orders/{orderId}");
         Order? order = await response.Content.ReadFromJsonAsync<Order>();
         order!.ShippedAtUtc.Should().BeCloseTo(eventTimeUtc, precision: TimeSpan.FromMilliseconds(1));
+    }
+
+    [Fact]
+    public async Task Sut_returns_BadRequest_if_order_not_started()
+    {
+        // arrange
+        OrdersServer server = OrdersServer.Create();
+        Guid orderId = Guid.NewGuid();
+        
+        await server.PlaceOrder(orderId);
+        
+        // act
+        HttpResponseMessage response = await server.HandleItemShipped(orderId);
+
+        // assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Sut_returns_BadRequest_if_order_already_completed()
+    {
+        // arrange
+        OrdersServer server = OrdersServer.Create();
+        Guid orderId = Guid.NewGuid();
+        
+        await server.PlaceOrder(orderId);
+        await server.StartOrder(orderId);
+        await server.BankTransferPaymentCompleted(orderId);
+        await server.HandleItemShipped(orderId);
+        
+        // act
+        HttpResponseMessage response = await server.HandleItemShipped(orderId);
+
+        // assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 }
