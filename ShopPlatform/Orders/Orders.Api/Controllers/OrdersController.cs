@@ -120,6 +120,11 @@ public sealed class OrdersController : Controller
             return NotFound();
         }
 
+        if (order.Status != OrderStatus.AwaitingShipment)
+        {
+            return BadRequest();
+        }
+
         order.Status = OrderStatus.Completed;
         order.ShippedAtUtc = listenedEvent.EventTimeUtc;
         await context.SaveChangesAsync();
