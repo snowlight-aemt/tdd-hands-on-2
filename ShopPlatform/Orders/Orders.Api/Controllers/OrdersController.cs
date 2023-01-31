@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Orders.Commands;
 using Orders.Events;
+using Orders.Messaging;
 
 namespace Orders.Controllers;
 
@@ -110,8 +111,16 @@ public sealed class OrdersController : Controller
     [HttpPost("accept/payment-approved")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public IActionResult AcceptPaymentApproved()
+    public async Task<IActionResult> AcceptPaymentApproved(
+        [FromBody] ExternalPaymentApproved listenedEvent,
+        [FromServices] IBus<PaymentApproved> bus)
     {
+        PaymentApproved paymentApproved = new (
+            listenedEvent.tid, 
+            listenedEvent.approved_at);
+        
+        await bus.Send(paymentApproved);
+        
         return Accepted();
     }
 

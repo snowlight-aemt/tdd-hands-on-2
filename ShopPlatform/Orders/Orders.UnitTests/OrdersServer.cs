@@ -48,7 +48,8 @@ public sealed class OrdersServer : TestServer
             {
                 config.AddInMemoryCollection(new Dictionary<string, string>
                 {
-                    ["ConnectionStrings:DefaultConnection"] = ConnectionString
+                    ["ConnectionStrings:DefaultConnection"] = ConnectionString,
+                    ["Storage:Queues:PaymentApproved"] = "payment-approved-unitests",
                 });
             });
             
