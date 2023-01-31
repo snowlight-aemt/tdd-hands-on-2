@@ -107,6 +107,14 @@ public sealed class OrdersController : Controller
         return Ok();
     }
 
+    [HttpPost("accept/payment-approved")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    public IActionResult AcceptPaymentApproved()
+    {
+        return Accepted();
+    }
+
     [HttpPost("handle/item-shipped")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]

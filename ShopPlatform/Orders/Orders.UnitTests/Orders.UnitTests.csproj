@@ -28,4 +28,8 @@
     <ProjectReference Include="..\Orders.Api\Orders.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="api\orders\accept" />
+  </ItemGroup>
+
 </Project>
