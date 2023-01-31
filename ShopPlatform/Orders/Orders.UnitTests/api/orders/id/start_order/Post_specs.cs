@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Json;
 using FluentAssertions;
 using Xunit;
 
@@ -17,7 +18,7 @@ public class Post_specs
 
         //act
         HttpResponseMessage response = await server.StartOrder(orderId);
-        
+
         //assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
@@ -35,7 +36,7 @@ public class Post_specs
 
         //act
         HttpResponseMessage response = await server.StartOrder(orderId);
-        
+
         //assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
@@ -51,11 +52,25 @@ public class Post_specs
         await server.StartOrder(orderId);
         await server.BankTransferPaymentCompleted(orderId);
         await server.HandleItemShipped(orderId);
-        
+
         //act
         HttpResponseMessage response = await server.StartOrder(orderId);
-        
+
         //assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Sut_correctly_sets_payment_transaction_id()
+    {
+        OrdersServer server = OrdersServer.Create();
+        Guid ordersId = Guid.NewGuid();
+        string? paymentTransactionId = $"{Guid.NewGuid()}";
+        await server.PlaceOrder(ordersId);
+
+        await server.StartOrder(ordersId, paymentTransactionId);
+
+        Order? order = await server.FindOrder(ordersId);
+        order!.PaymentTransactionId.Should().Be(paymentTransactionId);
     }
 }
