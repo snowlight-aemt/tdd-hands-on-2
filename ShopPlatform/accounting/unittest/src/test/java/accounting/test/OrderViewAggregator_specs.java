@@ -55,6 +55,24 @@ public class OrderViewAggregator_specs {
         Assertions.assertEquals("결제대기", list.get(0).status());
     }
 
+    @Test
+    void sut_localizes_AwaitingShipment_status() {
+        // arrange
+        ShopReader shopReader = id -> Optional.empty();
+        var sut = new OrderViewAggregator(shopReader);
+
+        // 세터가 없음.
+        Order order = getOrder("AwaitingShipment");
+
+        // act
+        Iterable<OrderView> orderViews = sut.aggregateViews(List.of(order));
+
+        // assert
+        List<OrderView> list = new ArrayList<>();
+        orderViews.forEach(list::add);
+        Assertions.assertEquals("배송대기", list.get(0).status());
+    }
+
     private static Order getOrder(String status) {
         Order order = new Order();
         setField(order, "id", UUID.randomUUID());
