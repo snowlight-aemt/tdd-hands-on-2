@@ -4,3 +4,6 @@ obj
 
 .idea
 .vscode
+.gradle
+ShopPlatform/accounting/api/build/
+ShopPlatform/accounting/unittest/build/
