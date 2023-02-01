@@ -34,6 +34,7 @@ public class OrderViewAggregator {
             case "Pending" -> "보류";
             case "AwaitingPayment" -> "결제대기";
             case "AwaitingShipment" -> "배송대기";
+            case "Completed" -> "완료";
             default -> status;
         };
     }

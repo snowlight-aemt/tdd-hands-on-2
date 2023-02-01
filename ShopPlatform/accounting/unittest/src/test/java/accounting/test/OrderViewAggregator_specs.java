@@ -6,6 +6,8 @@ import accounting.OrderViewAggregator;
 import accounting.ShopReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -19,14 +21,15 @@ import java.util.UUID;
 @SuppressWarnings("NewClassNamingConvention")
 public class OrderViewAggregator_specs {
 
-    @Test
-    void sut_localizes_Pending_status() {
+    @ParameterizedTest
+    @CsvSource({"Pending, 보류", "AwaitingPayment, 결제대기", "AwaitingShipment, 배송대기", "Completed, 완료"})
+    void sut_localizes_status(String status, String localizedStatus) {
         // arrange
         ShopReader shopReader = id -> Optional.empty();
         var sut = new OrderViewAggregator(shopReader);
 
         // 세터가 없음.
-        Order order = getOrder("Pending");
+        Order order = getOrder(status);
 
         // act
         Iterable<OrderView> orderViews = sut.aggregateViews(List.of(order));
@@ -34,43 +37,7 @@ public class OrderViewAggregator_specs {
         // assert
         List<OrderView> list = new ArrayList<>();
         orderViews.forEach(list::add);
-        Assertions.assertEquals("보류", list.get(0).status());
-    }
-
-    @Test
-    void sut_localizes_AwaitingPayment_status() {
-        // arrange
-        ShopReader shopReader = id -> Optional.empty();
-        var sut = new OrderViewAggregator(shopReader);
-
-        // 세터가 없음.
-        Order order = getOrder("AwaitingPayment");
-
-        // act
-        Iterable<OrderView> orderViews = sut.aggregateViews(List.of(order));
-
-        // assert
-        List<OrderView> list = new ArrayList<>();
-        orderViews.forEach(list::add);
-        Assertions.assertEquals("결제대기", list.get(0).status());
-    }
-
-    @Test
-    void sut_localizes_AwaitingShipment_status() {
-        // arrange
-        ShopReader shopReader = id -> Optional.empty();
-        var sut = new OrderViewAggregator(shopReader);
-
-        // 세터가 없음.
-        Order order = getOrder("AwaitingShipment");
-
-        // act
-        Iterable<OrderView> orderViews = sut.aggregateViews(List.of(order));
-
-        // assert
-        List<OrderView> list = new ArrayList<>();
-        orderViews.forEach(list::add);
-        Assertions.assertEquals("배송대기", list.get(0).status());
+        Assertions.assertEquals(localizedStatus, list.get(0).status());
     }
 
     private static Order getOrder(String status) {
