@@ -23,7 +23,7 @@ public class OrderViewAggregator {
                         map.computeIfAbsent(x.getShopId(), this::getShop),
                         x.getItemId(),
                         x.getPrice(),
-                        x.getStatus(),
+                        x.getStatus().equals("Pending") ? "보류" : "결제대기",
                         x.getPaymentTransactionId(),
                         x.getPlacedAtUtc()))
                 .toList();
