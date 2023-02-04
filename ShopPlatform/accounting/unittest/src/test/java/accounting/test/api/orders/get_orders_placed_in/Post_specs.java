@@ -61,6 +61,7 @@ public class Post_specs {
     @CsvAutoSource({
             "2022-08-31T23:59:59, 2022, 9, true",
             "2022-09-01T00:00:00, 2022, 9, true",
+            "2022-08-31T14:59:59, 2022, 9, false",
     })
     @Customization(AccountingCustomizer.class)
     void sut_correctly_globalizes_time_window(
