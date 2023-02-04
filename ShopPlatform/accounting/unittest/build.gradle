@@ -13,6 +13,7 @@ repositories {
 dependencies {
     testImplementation(project(":accounting:api"))
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.github.autoparams:autoparams-lombok:1.1.1'
 }
 
 tasks.named('bootJar') {
