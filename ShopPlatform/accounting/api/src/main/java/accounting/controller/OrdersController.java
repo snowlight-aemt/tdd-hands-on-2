@@ -36,12 +36,16 @@ public class OrdersController {
                     array = @ArraySchema(schema = @Schema(implementation = OrderView.class)))
     })
     public Iterable<OrderView> getOrdersPlacedIn(@RequestBody GetOrdersPlacedIn query) {
-        LocalDateTime startInclusive = LocalDateTime.of(query.year(), query.month(), 1, 0, 0).minusHours(9);
+        LocalDateTime startInclusive = LocalDateTime.of(query.year(), query.month(), 1, 0, 0);
         LocalDateTime endExclusive = startInclusive.plusMonths(1);
         Iterable<Order> orders = reader.getOrdersPlacedIn(
                 query.shopId(),
-                startInclusive,
-                endExclusive);
+                convertKstToUtc(startInclusive),
+                convertKstToUtc(endExclusive));
         return aggregator.aggregateViews(orders);
+    }
+
+    private static LocalDateTime convertKstToUtc(LocalDateTime kst) {
+        return kst.minusHours(9);
     }
 }
