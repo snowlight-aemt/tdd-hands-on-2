@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Sellers;
 
 namespace Orders;
 
@@ -40,8 +41,11 @@ public sealed class OrdersServer : TestServer
         {
             builder.ConfigureServices(services =>
             {
+                SellersServer sellers = SellersServer.Create();
                 // IServer 서비스 타입을 OrdersServer 로 구현한다고 선언함.  
                 services.AddSingleton<IServer, OrdersServer>();
+                services.AddSingleton(sellers);
+                services.AddSingleton(new SellersService(sellers.CreateClient()));
             });
 
             builder.ConfigureAppConfiguration(config =>
