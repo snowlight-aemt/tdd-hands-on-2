@@ -41,6 +41,7 @@ public sealed class OrdersController : Controller
     public Task PlaceOrder(
         Guid id,
         [FromBody] PlaceOrder command,
+        [FromServices] SellersService sellers,
         [FromServices] OrdersDbContext context)
     {
         context.Add(new Order
