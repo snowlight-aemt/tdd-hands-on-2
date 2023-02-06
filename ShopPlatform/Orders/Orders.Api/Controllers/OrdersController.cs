@@ -38,22 +38,29 @@ public sealed class OrdersController : Controller
     }
 
     [HttpPost("{id}/place-order")]
-    public Task PlaceOrder(
+    public async Task<IActionResult> PlaceOrder(
         Guid id,
         [FromBody] PlaceOrder command,
+        [FromServices] SellersService sellers,
         [FromServices] OrdersDbContext context)
     {
-        context.Add(new Order
+        if (await sellers.ShopExists(command.ShopId))
         {
-            Id = id,
-            UserId = command.UserId,
-            ShopId = command.ShopId,
-            ItemId = command.ItemId,
-            Price = command.Price,
-            Status = OrderStatus.Pending,
-            PlacedAtUtc = DateTime.UtcNow,
-        });
-        return context.SaveChangesAsync();
+            context.Add(new Order
+            {
+                Id = id,
+                UserId = command.UserId,
+                ShopId = command.ShopId,
+                ItemId = command.ItemId,
+                Price = command.Price,
+                Status = OrderStatus.Pending,
+                PlacedAtUtc = DateTime.UtcNow,
+            });
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+        
+        return BadRequest();
     }
 
     [HttpPost("{id}/start-order")]

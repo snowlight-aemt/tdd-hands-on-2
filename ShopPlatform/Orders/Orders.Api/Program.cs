@@ -17,6 +17,9 @@ public class Program
         services.AddSingleton<IBus<PaymentApproved>>(CreateStorageQueueBus);
         services.AddSingleton<IAsyncObservable<PaymentApproved>>(CreateStorageQueueBus);
 
+        // HttpClient 의존성을 갖는 서비스 등록 유틸
+        services.AddHttpClient<SellersService>();
+        
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
