@@ -1,17 +1,27 @@
 using System.Net.Http.Json;
+using Microsoft.Extensions.DependencyInjection;
 using Orders.Commands;
 using Orders.Events;
+using Sellers;
 
 namespace Orders;
 
 public static class TestSpecifiedLanguage
 {
+
+    public static SellersServer GetSellersServer(this OrdersServer server)
+    {
+        return server.Services.GetRequiredService<SellersServer>();
+    }
+    
     public static async Task<HttpResponseMessage> PlaceOrder(this OrdersServer server, Guid orderId, Guid? shopId = null)
     {
         HttpClient client = server.CreateClient();
 
+        Shop shop = await GetSellersServer(server).CreateShop();
+
         string uri = $"api/orders/{orderId}/place-order";
-        PlaceOrder placeOrder = new (Guid.NewGuid(), shopId ?? Guid.NewGuid(), Guid.NewGuid(), 100000);
+        PlaceOrder placeOrder = new (Guid.NewGuid(), shopId ?? shop.Id, Guid.NewGuid(), 100000);
         return await client.PostAsJsonAsync(uri, placeOrder);
     }
 

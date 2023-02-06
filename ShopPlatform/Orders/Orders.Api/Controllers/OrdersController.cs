@@ -44,18 +44,23 @@ public sealed class OrdersController : Controller
         [FromServices] SellersService sellers,
         [FromServices] OrdersDbContext context)
     {
-        context.Add(new Order
+        if (await sellers.ShopExists(command.ShopId))
         {
-            Id = id,
-            UserId = command.UserId,
-            ShopId = command.ShopId,
-            ItemId = command.ItemId,
-            Price = command.Price,
-            Status = OrderStatus.Pending,
-            PlacedAtUtc = DateTime.UtcNow,
-        });
-        await context.SaveChangesAsync();
-        return await sellers.ShopExists(command.ShopId) ? Ok() : BadRequest();
+            context.Add(new Order
+            {
+                Id = id,
+                UserId = command.UserId,
+                ShopId = command.ShopId,
+                ItemId = command.ItemId,
+                Price = command.Price,
+                Status = OrderStatus.Pending,
+                PlacedAtUtc = DateTime.UtcNow,
+            });
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+        
+        return BadRequest();
     }
 
     [HttpPost("{id}/start-order")]
