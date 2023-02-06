@@ -38,7 +38,7 @@ public sealed class OrdersController : Controller
     }
 
     [HttpPost("{id}/place-order")]
-    public Task PlaceOrder(
+    public async Task<IActionResult> PlaceOrder(
         Guid id,
         [FromBody] PlaceOrder command,
         [FromServices] SellersService sellers,
@@ -54,7 +54,8 @@ public sealed class OrdersController : Controller
             Status = OrderStatus.Pending,
             PlacedAtUtc = DateTime.UtcNow,
         });
-        return context.SaveChangesAsync();
+        await context.SaveChangesAsync();
+        return await sellers.ShopExists(command.ShopId) ? Ok() : BadRequest();
     }
 
     [HttpPost("{id}/start-order")]

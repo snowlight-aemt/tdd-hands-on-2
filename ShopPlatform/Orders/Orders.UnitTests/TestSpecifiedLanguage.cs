@@ -6,13 +6,13 @@ namespace Orders;
 
 public static class TestSpecifiedLanguage
 {
-    public static async Task PlaceOrder(this OrdersServer server, Guid orderId)
+    public static async Task<HttpResponseMessage> PlaceOrder(this OrdersServer server, Guid orderId, Guid? shopId = null)
     {
         HttpClient client = server.CreateClient();
 
         string uri = $"api/orders/{orderId}/place-order";
-        PlaceOrder placeOrder = new (Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), 100000);
-        await client.PostAsJsonAsync(uri, placeOrder);
+        PlaceOrder placeOrder = new (Guid.NewGuid(), shopId ?? Guid.NewGuid(), Guid.NewGuid(), 100000);
+        return await client.PostAsJsonAsync(uri, placeOrder);
     }
 
     public static async Task<HttpResponseMessage> StartOrder(this OrdersServer server, 
