@@ -7,3 +7,5 @@ obj
 .gradle
 ShopPlatform/accounting/api/build/
 ShopPlatform/accounting/unittest/build/
+
+.DS_Store
