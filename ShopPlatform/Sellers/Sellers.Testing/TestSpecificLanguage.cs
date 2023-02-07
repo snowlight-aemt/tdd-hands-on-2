@@ -19,4 +19,12 @@ public static class TestSpecificLanguage
         ShopUser body = new (userId, password);
         return server.CreateClient().PostAsJsonAsync(url, body);
     }
+
+    public static async Task<ShopView?> GetShop(this SellersServer server, Guid shopId)
+    {
+        string url = $"api/shops/{shopId}";
+        HttpResponseMessage response = await server.CreateClient().GetAsync(url);
+        HttpContent content = response.EnsureSuccessStatusCode().Content;
+        return await content.ReadFromJsonAsync<ShopView>();
+    }
 }

@@ -1,4 +1,6 @@
+using System.Diagnostics.Eventing.Reader;
 using System.Net;
+using System.Net.Http.Json;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Sellers;

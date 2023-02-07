@@ -1,3 +1,5 @@
+using Sellers;
+
 namespace Orders;
 
 public sealed class SellersService
@@ -11,5 +13,13 @@ public sealed class SellersService
         string uri = $"api/shops/{shopId}";
         HttpResponseMessage response = await this.client.GetAsync(uri);
         return response.IsSuccessStatusCode;
+    }
+
+    internal async Task<ShopView> GetShop(Guid shopId)
+    {
+        string uri = $"api/shops/{shopId}";
+        HttpResponseMessage response = await client.GetAsync(uri);
+        HttpContent content = response.Content;
+        return (await content.ReadFromJsonAsync<ShopView>())!;
     }
 }
