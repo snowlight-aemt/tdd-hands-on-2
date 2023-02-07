@@ -11,7 +11,7 @@ public sealed class SellersService
     public async Task<bool> ShopExists(Guid shopId)
     {
         string uri = $"api/shops/{shopId}";
-        HttpResponseMessage response = await this.client.GetAsync(uri);
+        HttpResponseMessage response = await client.GetAsync(uri);
         return response.IsSuccessStatusCode;
     }
 
