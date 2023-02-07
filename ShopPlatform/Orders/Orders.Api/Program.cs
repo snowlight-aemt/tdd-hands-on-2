@@ -18,7 +18,7 @@ public class Program
         services.AddSingleton<IAsyncObservable<PaymentApproved>>(CreateStorageQueueBus);
 
         // HttpClient 의존성을 갖는 서비스 등록 유틸
-        services.AddHttpClient<SellersService>();
+        services.AddHttpClient<SellersService>(ConfigureSellersClient);
         
         services.AddControllers();
         services.AddEndpointsApiExplorer();
@@ -47,6 +47,12 @@ public class Program
             config["Storage:ConnectionString"],
             config["Storage:Queues:PaymentApproved"]);
         return new StorageQueueBus(client);
+    }
+
+    private static void ConfigureSellersClient(IServiceProvider provider, HttpClient client)
+    {
+        IConfiguration config = provider.GetRequiredService<IConfiguration>();
+        client.BaseAddress = new Uri(config["Sellers:Host"]);
     }
 
     private static void ConfigureDbContextOptions(
