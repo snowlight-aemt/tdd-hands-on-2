@@ -6,8 +6,10 @@ namespace Sellers;
 public sealed class AutoSellersDataAttribute : AutoDataAttribute
 {
     public AutoSellersDataAttribute()
-        : base(() => new Fixture().Customize(new ShopCustomization()))
+        : base(() => new Fixture()
+            .Customize(new CompositeCustomization(
+                new ShopCustomization(), 
+                new SellersServerCustomization())))
     {
-        
     }
 }

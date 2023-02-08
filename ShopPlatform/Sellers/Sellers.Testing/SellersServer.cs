@@ -11,7 +11,7 @@ namespace Sellers;
 
 public sealed class SellersServer : TestServer
 {
-    private const string ConnectionString = "Server=127.0.0.1;Port=5432;Database=Sellers_UnitTests;User Id=postgres;Password=mysecretpassword;";
+    private const string DefaultConnectionString = "Server=127.0.0.1;Port=5432;Database=Sellers_UnitTests;User Id=postgres;Password=mysecretpassword;";
         
     public SellersServer(
         IServiceProvider services, 
@@ -21,9 +21,9 @@ public sealed class SellersServer : TestServer
         
     }
 
-    public static SellersServer Create()
+    public static SellersServer Create(string connectionString = DefaultConnectionString)
     {
-        SellersServer server =  (SellersServer) new Factory().Server;
+        SellersServer server =  (SellersServer) new Factory(connectionString).Server;
         lock (typeof(SellersDbContext))
         {
             using IServiceScope scope = server.Services.CreateScope();
@@ -35,6 +35,10 @@ public sealed class SellersServer : TestServer
 
     private sealed class Factory : WebApplicationFactory<Program>
     {
+        private readonly string connectionString;
+        
+        public Factory(string connectionString) => this.connectionString = connectionString;
+
         protected override IHost CreateHost(IHostBuilder builder)
         {
             builder.ConfigureServices(services =>
@@ -47,7 +51,7 @@ public sealed class SellersServer : TestServer
             {
                 config.AddInMemoryCollection(new Dictionary<string, string>
                 {
-                    ["ConnectionStrings:DefaultConnection"] = ConnectionString,
+                    ["ConnectionStrings:DefaultConnection"] = this.connectionString,
                 });
             });
             

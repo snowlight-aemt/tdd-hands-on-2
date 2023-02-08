@@ -9,10 +9,8 @@ namespace Sellers.api.shops.id;
 public class Get_specs
 {
     [Theory, AutoSellersData]
-    public async Task Sut_does_not_expose_user_credentials(Shop shop)
+    public async Task Sut_does_not_expose_user_credentials(Shop shop, SellersServer server)
     {
-        SellersServer server = SellersServer.Create();
-
         IServiceScope scope = server.Services.CreateScope();
         SellersDbContext context = scope.ServiceProvider.GetRequiredService<SellersDbContext>();
         
