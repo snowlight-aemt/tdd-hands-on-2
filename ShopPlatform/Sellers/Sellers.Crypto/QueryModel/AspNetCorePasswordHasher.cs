@@ -4,20 +4,22 @@ namespace Sellers.QueryModel;
 
 public class AspNetCorePasswordHasher : IPasswordHasher
 {
+    private static readonly object User = new();
     private IPasswordHasher<object> hasher;
     
-    public AspNetCorePasswordHasher(IPasswordHasher<object> hasher)
-    {
-        this.hasher = hasher;
-    }
+    public AspNetCorePasswordHasher(IPasswordHasher<object> hasher) => this.hasher = hasher;
 
     public string HashPassword(string password)
     {
-        return $"{Guid.NewGuid()}";
+        return hasher.HashPassword(User, password);
     }
 
     public bool VerifyPassword(string hashedPassword, string providedPassword)
     {
-        return true;
+        return hasher.VerifyHashedPassword(User, hashedPassword, providedPassword) switch
+        {
+            PasswordVerificationResult.Failed => false,
+            _ => true,
+        };
     }
 }
