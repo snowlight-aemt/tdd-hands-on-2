@@ -1,13 +1,31 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Sellers.QueryModel;
 
 public sealed class ShopUserReader: IUserReader
 {
+    private readonly Func<SellersDbContext> contextFactory;
+
     public ShopUserReader(Func<SellersDbContext> contextFactory)
     {
+        this.contextFactory = contextFactory;
     }
     
-    public Task<User?> FindUser(string username)
+    public async Task<User?> FindUser(string username)
     {
-        return Task.FromResult<User?>(default);
+        using SellersDbContext context = contextFactory.Invoke();
+        
+        IQueryable<Shop> query = 
+                from x in context.Shops
+                where x.UserId == username
+                select x;
+        
+        Shop shop = await query.SingleAsync();
+        return Translate(shop);
+    }
+
+    private static User? Translate(Shop shop)
+    {
+        return new User(default, shop.UserId, shop.PasswordHash);
     }
 }

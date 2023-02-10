@@ -10,7 +10,8 @@ public sealed class AutoSellersDataAttribute : AutoDataAttribute
             .Customize(new CompositeCustomization(
                 new ShopCustomization(), 
                 new SellersServerCustomization(),
-                new PasswordHasherCustomization())))
+                new PasswordHasherCustomization(),
+                new SellersDbContextCustomization())))
     {
     }
 }
