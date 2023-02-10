@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sellers.DomainModel", "Sell
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sellers.Sql", "Sellers\Sellers.Sql\Sellers.Sql.csproj", "{702280C8-6E11-4ED6-8666-A4FE34B7B6B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sellers.Crypto", "Sellers\Sellers.Crypto\Sellers.Crypto.csproj", "{7AC8927B-E55A-4CF8-9863-7B817B564D64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{702280C8-6E11-4ED6-8666-A4FE34B7B6B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{702280C8-6E11-4ED6-8666-A4FE34B7B6B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{702280C8-6E11-4ED6-8666-A4FE34B7B6B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AC8927B-E55A-4CF8-9863-7B817B564D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AC8927B-E55A-4CF8-9863-7B817B564D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AC8927B-E55A-4CF8-9863-7B817B564D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AC8927B-E55A-4CF8-9863-7B817B564D64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{DC3A1CDE-74F1-4CD1-BE92-D3B4220B4904} = {C5D2AED1-52B4-40FB-A4AF-83AD40DECEBB}
 		{BF3E511A-1A88-451F-9F37-4743BFC6D96B} = {C5D2AED1-52B4-40FB-A4AF-83AD40DECEBB}
 		{702280C8-6E11-4ED6-8666-A4FE34B7B6B0} = {C5D2AED1-52B4-40FB-A4AF-83AD40DECEBB}
+		{7AC8927B-E55A-4CF8-9863-7B817B564D64} = {C5D2AED1-52B4-40FB-A4AF-83AD40DECEBB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7CC5FAC9-580D-44E4-9E09-EC36B4311EB9}
