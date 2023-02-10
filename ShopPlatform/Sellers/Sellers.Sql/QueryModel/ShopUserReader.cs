@@ -20,12 +20,15 @@ public sealed class ShopUserReader: IUserReader
                 where x.UserId == username
                 select x;
         
-        Shop shop = await query.SingleAsync();
-        return Translate(shop);
+        return await query.SingleOrDefaultAsync() switch
+        {
+            Shop shop => Translate(shop),
+            _ => null,
+        };
     }
 
     private static User? Translate(Shop shop)
     {
-        return new User(default, shop.UserId, shop.PasswordHash);
+        return new User(shop.Id, shop.UserId, shop.PasswordHash);
     }
 }
