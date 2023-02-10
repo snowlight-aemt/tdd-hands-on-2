@@ -18,6 +18,6 @@ public class AspNetCorePasswordHasher : IPasswordHasher
 
     public bool VerifyPassword(string hashedPassword, string providedPassword)
     {
-        return default;
+        return true;
     }
 }
