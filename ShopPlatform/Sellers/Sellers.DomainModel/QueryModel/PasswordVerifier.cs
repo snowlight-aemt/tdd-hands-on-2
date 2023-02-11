@@ -2,12 +2,18 @@ namespace Sellers.QueryModel;
 
 public sealed class PasswordVerifier
 {
+    private readonly IUserReader reader;
+    private readonly IPasswordHasher hasher;
+
     public PasswordVerifier(IUserReader reader, IPasswordHasher hasher)
     {
+        this.reader = reader;
+        this.hasher = hasher;
     }
 
-    public Task<bool> VerifyPassword(string username, string password)
+    public async Task<bool> VerifyPassword(string username, string password)
     {
-        return Task.FromResult<bool>(default);
+        User? user = await this.reader.FindUser(username);
+        return hasher.VerifyPassword(user!.PasswordHash, password);
     }
 }
