@@ -9,7 +9,9 @@ public sealed class AutoSellersDataAttribute : AutoDataAttribute
         : base(() => new Fixture()
             .Customize(new CompositeCustomization(
                 new ShopCustomization(), 
-                new SellersServerCustomization())))
+                new SellersServerCustomization(),
+                new PasswordHasherCustomization(),
+                new SellersDbContextCustomization())))
     {
     }
 }
