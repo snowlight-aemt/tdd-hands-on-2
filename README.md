@@ -14,3 +14,8 @@ orders, sellers, accounting
 
 ### B2B 계정관리 기능 개선
 
+### Tool 
+#### dotnet 
+```shell
+dotnet tool install dotnet-ef --global --version 6.0.4
+```
