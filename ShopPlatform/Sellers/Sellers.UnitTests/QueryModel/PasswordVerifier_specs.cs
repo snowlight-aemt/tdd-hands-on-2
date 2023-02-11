@@ -26,4 +26,17 @@ public class PasswordVerifier_specs
         bool actual = await passwordVerifier.VerifyPassword(shop.UserId, providedPassword);
         actual.Should().Be(result);
     }
+
+    [Theory, AutoSellersData]
+    public async Task verifyPassword_returns_false_with_non_existent_username(
+        ShopUserReader reader,
+        AspNetCorePasswordHasher hasher,
+        string username,
+        string password)
+    {
+        PasswordVerifier passwordVerifier = new (reader, hasher);
+        bool actual = await passwordVerifier.VerifyPassword(username, password);
+
+        actual.Should().BeFalse();
+    }
 }

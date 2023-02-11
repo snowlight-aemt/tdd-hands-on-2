@@ -13,7 +13,10 @@ public sealed class PasswordVerifier
 
     public async Task<bool> VerifyPassword(string username, string password)
     {
-        User? user = await this.reader.FindUser(username);
-        return hasher.VerifyPassword(user!.PasswordHash, password);
+        return await this.reader.FindUser(username) switch
+        {
+            User user => hasher.VerifyPassword(user.PasswordHash, password),
+            null => false,
+        };
     }
 }
