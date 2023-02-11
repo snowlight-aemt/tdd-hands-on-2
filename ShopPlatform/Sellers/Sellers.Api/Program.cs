@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Sellers.QueryModel;
 
 namespace Sellers;
 
@@ -12,7 +13,13 @@ public class Program
         IServiceCollection services = builder.Services;
 
         services.AddDbContext<SellersDbContext>(ConfigureDbContextOptions);
+        services.AddSingleton<Func<SellersDbContext>>(GetDbContextFactory);
+        
         services.AddSingleton<IPasswordHasher<object>, PasswordHasher<object>>();
+        services.AddSingleton<IPasswordHasher, AspNetCorePasswordHasher>();
+        services.AddSingleton<PasswordVerifier>();
+        
+        services.AddSingleton<IUserReader, ShopUserReader>();
 
         services.AddControllers();
         services.AddEndpointsApiExplorer();
@@ -37,5 +44,12 @@ public class Program
     {
         IConfiguration config = provider.GetRequiredService<IConfiguration>();
         options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+    }
+
+    private static Func<SellersDbContext> GetDbContextFactory(IServiceProvider provider)
+    {
+        DbContextOptionsBuilder<SellersDbContext> options = new();
+        ConfigureDbContextOptions(provider, options);
+        return () => new SellersDbContext(options.Options);
     }
 }

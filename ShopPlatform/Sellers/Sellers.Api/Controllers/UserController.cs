@@ -8,11 +8,10 @@ namespace Sellers.Controllers;
 public class UserController: Controller
 {
     [HttpPost("verify-password")]
-    public void VerifyPassword(
+    public IActionResult VerifyPassword(
         [FromBody] Credentials credentials,
         [FromServices] PasswordVerifier verifier)
     {
-        
+        return BadRequest();
     }
-    
 }
