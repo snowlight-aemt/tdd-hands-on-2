@@ -4,11 +4,11 @@ namespace Sellers;
 
 public static class TestSpecificLanguage
 {
-    public static async Task<Shop> CreateShop(this SellersServer server)
+    public static async Task<Shop> CreateShop(this SellersServer server, string? name = null)
     {
         HttpClient client = server.CreateClient();
         string url = $"api/shops";
-        var body = new { Name = $"{Guid.NewGuid()}" };
+        var body = new { Name = name ?? $"{Guid.NewGuid()}" };
         HttpResponseMessage response = await client.PostAsJsonAsync(url, body);
         return (await response.Content.ReadFromJsonAsync<Shop>())!;
     }
