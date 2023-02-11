@@ -7,7 +7,10 @@ orders, sellers, accounting
 
 ## 주문 및 정산 기능 개선
 * [orders-0.0.1](https://github.com/snowlight-aemt/tdd-hands-on-2/tree/orders-0.0.1)
+* [orders-0.0.2](https://github.com/snowlight-aemt/tdd-hands-on-2/tree/orders-0.0.2)
 * [sellers-0.0.1](https://github.com/snowlight-aemt/tdd-hands-on-2/tree/sellers-0.0.1)
+* [sellers-0.0.2](https://github.com/snowlight-aemt/tdd-hands-on-2/tree/sellers-0.0.2)
+* [sellers-0.0.3](https://github.com/snowlight-aemt/tdd-hands-on-2/tree/sellers-0.0.3)
 * [accounting-0.0.1](https://github.com/snowlight-aemt/tdd-hands-on-2/tree/accounting-0.0.1)
 * [accounting-0.0.2](https://github.com/snowlight-aemt/tdd-hands-on-2/tree/accounting-0.0.2)
 * [accounting-0.0.3](https://github.com/snowlight-aemt/tdd-hands-on-2/tree/accounting-0.0.3)
