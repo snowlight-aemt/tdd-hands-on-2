@@ -12,7 +12,12 @@ public sealed class SqlUserRepository : IUserRepository
     public async Task Add(User user)
     {
         using SellersDbContext context = this.contextFactory.Invoke();
-        context.Users.Add(new UserEntity {Username = user.Username, Id = user.Id, PasswordHash = user.PasswordHash});
+        context.Users.Add(new UserEntity
+        {
+            Username = user.Username,
+            Id = user.Id,
+            PasswordHash = user.PasswordHash
+        });
         await context.SaveChangesAsync();
     }
 }
