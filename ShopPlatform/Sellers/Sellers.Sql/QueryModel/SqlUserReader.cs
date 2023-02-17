@@ -14,7 +14,11 @@ public class SqlUserReader: IUserReader
     public async Task<User?> FindUser(string username)
     {
         SellersDbContext context = this.contextFactory.Invoke();
-        UserEntity userEntity = await context.Users.AsNoTracking().Where(x => x.Username == username).SingleAsync();
-        return new User(userEntity.Id, userEntity.Username, userEntity.PasswordHash);
+        IQueryable<UserEntity> query = context.Users.AsNoTracking().Where(x => x.Username == username);
+        return await query.SingleOrDefaultAsync() switch
+        {
+            UserEntity user => new User(user.Id, user.Username, user.PasswordHash),
+            null => null,
+        };
     }
 }
