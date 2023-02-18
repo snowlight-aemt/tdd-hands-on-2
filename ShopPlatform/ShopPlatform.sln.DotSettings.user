@@ -10,10 +10,24 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=10238285_002D2fb8_002D425b_002Da35b_002Dc79d88c6c65f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Sut_returns_correctly_entity_from_user_data_model" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.QueryModel.BackwardCompatibleUserReader_specs.Sut_returns_correctly_entity_from_user_data_model&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.QueryModel.BackwardCompatibleUserReader_specs.Sut_returns_correctly_entity_from_shop_data_model&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=153060b6_002D1005_002D408a_002Dbeff_002D7e672ef51d65/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Sut_does_not_expose_user_information" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c59cd02_002D4ca6_002D43c4_002Db15c_002D27858d7708b1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;And&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.QueryModel.BackwardCompatibleUserReader_specs&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;Category&gt;&amp;lt;Uncategorized&amp;gt;&lt;/Category&gt;
+    &lt;Project Location="/Users/snowlight/IdeaProjects/hands-on-2/ShopPlatform/Sellers/Sellers.UnitTests" Presentation="&amp;lt;Sellers&amp;gt;\&amp;lt;Sellers.UnitTests&amp;gt;" /&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.QueryModel.BackwardCompatibleUserReader_specs.Sut_returns_correctly_entity_from_user_data_model&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.QueryModel.BackwardCompatibleUserReader_specs.Sut_returns_correctly_entity_from_shop_data_model&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+  &lt;/And&gt;
 &lt;/SessionState&gt;</s:String>
 	
 	

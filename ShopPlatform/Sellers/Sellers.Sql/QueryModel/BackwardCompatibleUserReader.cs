@@ -4,16 +4,23 @@ namespace Sellers.QueryModel;
 
 public sealed class BackwardCompatibleUserReader: IUserReader
 {
-    private readonly Func<SellersDbContext> contextFactory;
+    private readonly SqlUserReader defaultReader;
+    private readonly ShopUserReader fallback;
 
-    public BackwardCompatibleUserReader(Func<SellersDbContext> contextFactory)
+    public BackwardCompatibleUserReader(Func<SellersDbContext> contextFactory) 
+        : this(
+            new SqlUserReader(contextFactory),
+            new ShopUserReader(contextFactory))
     {
-        this.contextFactory = contextFactory;
     }
 
-    public async Task<User?> FindUser(string username)
+    private BackwardCompatibleUserReader(SqlUserReader defaultReader, ShopUserReader fallback)
     {
-        SqlUserReader userReader = new (this.contextFactory);
-        return await userReader.FindUser(username);
+        this.defaultReader = defaultReader;
+        this.fallback = fallback;
     }
+
+    public async Task<User?> FindUser(string username) =>
+        await this.defaultReader.FindUser(username) 
+        ?? await this.fallback.FindUser(username);
 }
