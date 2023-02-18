@@ -18,8 +18,8 @@ public class Program
         services.AddSingleton<IPasswordHasher<object>, PasswordHasher<object>>();
         services.AddSingleton<IPasswordHasher, AspNetCorePasswordHasher>();
         services.AddSingleton<PasswordVerifier>();
-        
-        services.AddSingleton<IUserReader, ShopUserReader>();
+
+        services.AddSingleton<IUserReader, BackwardCompatibleUserReader>();
 
         services.AddControllers();
         services.AddEndpointsApiExplorer();
