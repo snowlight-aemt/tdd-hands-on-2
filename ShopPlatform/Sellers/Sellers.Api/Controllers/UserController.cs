@@ -21,14 +21,14 @@ public class UserController: Controller
             _ => BadRequest(),
         };
     }
-
+    
     [HttpPost("{id}/create-user")]
-    public void CreateUser(
+    public Task CreateUser(
         Guid id, 
         [FromBody] CreateUser command,
         [FromServices] CreateUserCommandExecutor executor
     )
     {
-        
+        return executor.Execute(id, command);
     }
 }
