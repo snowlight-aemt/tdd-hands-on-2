@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Sellers.QueryModel;
 
 public sealed class BackwardCompatibleUserReader: IUserReader
@@ -9,8 +11,9 @@ public sealed class BackwardCompatibleUserReader: IUserReader
         this.contextFactory = contextFactory;
     }
 
-    public Task<User?> FindUser(string username)
+    public async Task<User?> FindUser(string username)
     {
-        throw new NotImplementedException();
+        SqlUserReader userReader = new (this.contextFactory);
+        return await userReader.FindUser(username);
     }
 }
