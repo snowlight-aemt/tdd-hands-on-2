@@ -14,7 +14,7 @@ public class PasswordVerifier_specs
         bool result,
         Func<SellersDbContext> contextFactory,
         ShopUserReader reader,
-        AspNetCorePasswordHasher hasher, 
+        IPasswordHasher hasher, 
         Shop shop)
     {
         using SellersDbContext context = contextFactory.Invoke();
@@ -30,7 +30,7 @@ public class PasswordVerifier_specs
     [Theory, AutoSellersData]
     public async Task verifyPassword_returns_false_with_non_existent_username(
         ShopUserReader reader,
-        AspNetCorePasswordHasher hasher,
+        IPasswordHasher hasher,
         string username,
         string password)
     {

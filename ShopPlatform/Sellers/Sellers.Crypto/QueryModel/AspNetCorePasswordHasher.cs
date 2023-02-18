@@ -5,9 +5,9 @@ namespace Sellers.QueryModel;
 public class AspNetCorePasswordHasher : IPasswordHasher
 {
     private static readonly object User = new();
-    private IPasswordHasher<object> hasher;
+    private PasswordHasher<object> hasher;
     
-    public AspNetCorePasswordHasher(IPasswordHasher<object> hasher) => this.hasher = hasher;
+    public AspNetCorePasswordHasher(PasswordHasher<object> hasher) => this.hasher = hasher;
 
     public string HashPassword(string password)
     {

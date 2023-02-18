@@ -8,7 +8,8 @@ public sealed class PasswordHasherCustomization: ICustomization
 {
     public void Customize(IFixture fixture)
     {
-        fixture.Register<IPasswordHasher<object>>(() => new PasswordHasher<object>());
+        fixture.Register(() => new PasswordHasher<object>());
+        fixture.Register<IPasswordHasher>(() => new AspNetCorePasswordHasher(new PasswordHasher<object>()));
     }
     
 }

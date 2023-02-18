@@ -16,6 +16,7 @@ public class Program
         services.AddSingleton<Func<SellersDbContext>>(GetDbContextFactory);
         
         services.AddSingleton<IPasswordHasher<object>, PasswordHasher<object>>();
+        services.AddSingleton<PasswordHasher<object>>();
         services.AddSingleton<IPasswordHasher, AspNetCorePasswordHasher>();
         services.AddSingleton<PasswordVerifier>();
 
