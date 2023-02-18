@@ -19,8 +19,26 @@ public class Post_specs
         await client.PostAsJsonAsync(commandUri, createUser);
 
         Credentials credentials = new (createUser.Username, createUser.Password);
-         string queryUri = "api/users/verify-password";
+        string queryUri = "api/users/verify-password";
         HttpResponseMessage response = await client.PostAsJsonAsync(queryUri, credentials);
         response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
+    [Theory, AutoSellersData]
+    public async Task Sut_returns_BadRequest_with_duplicate_username(
+        SellersServer server,
+        CreateUser createUser,
+        Guid userId)
+    {
+        // arrange
+        HttpClient client = server.CreateClient();
+        await client.PostAsJsonAsync($"api/users/{userId}/create-user", createUser);
+        
+        // act
+        string uri = $"api/users/{userId}/create-user";
+        HttpResponseMessage response = await client.PostAsJsonAsync(uri, createUser);
+        
+        // assert  
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 }

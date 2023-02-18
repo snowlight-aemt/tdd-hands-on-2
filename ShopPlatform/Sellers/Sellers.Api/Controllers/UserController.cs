@@ -2,6 +2,7 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Sellers.CommandModel;
 using Sellers.Commands;
+using Sellers.Filters;
 using Sellers.QueryModel;
 
 namespace Sellers.Controllers;
@@ -23,6 +24,7 @@ public class UserController: Controller
     }
     
     [HttpPost("{id}/create-user")]
+    [TypeFilter(typeof(invariantViolationFilter))]
     public Task CreateUser(
         Guid id, 
         [FromBody] CreateUser command,
