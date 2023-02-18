@@ -7,9 +7,13 @@
 	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967294</s:Int64>
 	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentBuildToolPaths/=_002Fusr_002Flocal_002Fshare_002Fdotnet_002Fsdk_002F6_002E0_002E405_002FMSBuild_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">No</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=153060b6_002D1005_002D408a_002Dbeff_002D7e672ef51d65/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Sut_does_not_expose_user_information" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ae93f250_002Dddd4_002D4998_002Da0ed_002D7f08feb56d91/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CreateUserCommandExecutor_specs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
 	
 	
 	

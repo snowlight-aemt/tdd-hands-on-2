@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Sellers.CommandModel;
 using Sellers.QueryModel;
 
 namespace Sellers;
@@ -16,10 +17,13 @@ public class Program
         services.AddSingleton<Func<SellersDbContext>>(GetDbContextFactory);
         
         services.AddSingleton<IPasswordHasher<object>, PasswordHasher<object>>();
+        services.AddSingleton<PasswordHasher<object>>();
         services.AddSingleton<IPasswordHasher, AspNetCorePasswordHasher>();
         services.AddSingleton<PasswordVerifier>();
-        
-        services.AddSingleton<IUserReader, ShopUserReader>();
+
+        services.AddSingleton<IUserReader, BackwardCompatibleUserReader>();
+        services.AddSingleton<IUserRepository, SqlUserRepository>();
+        services.AddSingleton<CreateUserCommandExecutor>();
 
         services.AddControllers();
         services.AddEndpointsApiExplorer();

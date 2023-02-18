@@ -11,7 +11,8 @@ public sealed class AutoSellersDataAttribute : AutoDataAttribute
                 new ShopCustomization(), 
                 new SellersServerCustomization(),
                 new PasswordHasherCustomization(),
-                new SellersDbContextCustomization())))
+                new SellersDbContextCustomization(),
+                new UserCustomization() )))
     {
     }
 }
