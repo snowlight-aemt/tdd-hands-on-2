@@ -23,4 +23,8 @@ public sealed class BackwardCompatibleUserReader: IUserReader
     public async Task<User?> FindUser(string username) =>
         await this.defaultReader.FindUser(username) 
         ?? await this.fallback.FindUser(username);
+
+    public async Task<User?> FindUser(Guid id) =>
+        await this.defaultReader.FindUser(id) 
+        ?? await this.fallback.FindUser(id);
 }

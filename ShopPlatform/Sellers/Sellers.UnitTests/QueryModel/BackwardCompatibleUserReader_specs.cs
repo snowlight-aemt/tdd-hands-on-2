@@ -38,4 +38,38 @@ public class BackwardCompatibleUserReader_specs
         User? expected = await new ShopUserReader(contextFactory).FindUser(username);
         actual!.Should().BeEquivalentTo(expected);
     }
+    
+    [Theory, AutoSellersData]
+    public async Task Sut_returns_correctly_entity_from_user_data_model_by_id(
+        Func<SellersDbContext> contextFactory,
+        UserEntity user,
+        BackwardCompatibleUserReader userReader)
+    {
+        SellersDbContext context = contextFactory.Invoke();
+        context.Users.Add(user);
+        await context.SaveChangesAsync();
+
+        User? actual = await userReader.FindUser(user.Id);
+        actual!.Should().BeEquivalentTo(user, x => x.ExcludingMissingMembers());
+    }
+    
+    [Theory, AutoSellersData]
+    public async Task Sut_returns_correctly_entity_from_shop_data_model_by_id(
+        Func<SellersDbContext> contextFactory,
+        Shop shop,
+        BackwardCompatibleUserReader userReader)
+    {
+        // arrange
+        SellersDbContext context = contextFactory.Invoke();
+        context.Shops.Add(shop);
+        await context.SaveChangesAsync();
+        Guid id = shop.Id;
+
+        // act
+        User? actual = await userReader.FindUser(id);
+        
+        // assert
+        User? expected = await new ShopUserReader(contextFactory).FindUser(id);
+        actual!.Should().BeEquivalentTo(expected);
+    }
 }
