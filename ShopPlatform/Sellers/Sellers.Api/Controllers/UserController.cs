@@ -33,4 +33,10 @@ public class UserController: Controller
     {
         return executor.Execute(id, command);
     }
+
+    [HttpGet("{id}/roles")]
+    public void GetRoles(Guid id)
+    {
+        
+    }
 }
