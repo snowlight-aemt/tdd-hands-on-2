@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using Sellers.Commands;
 using Sellers.QueryModel;
 
@@ -28,7 +29,7 @@ public class CreateUserCommandExecutor
     private Task AddUser(Guid id, CreateUser command)
     {
         string hashPassword = this.hasher.HashPassword(command.Password);
-        return this.repository.Add(new User(id, command.Username, hashPassword));
+        return this.repository.Add(new User(id, command.Username, hashPassword, ImmutableArray<Role>.Empty));
     }
 
     private async Task AssertThatUsernameIsUnique(string username)

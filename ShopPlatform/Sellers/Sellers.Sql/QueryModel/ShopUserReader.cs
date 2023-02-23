@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +29,6 @@ public sealed class ShopUserReader: IUserReader
 
     private static User? Translate(Shop shop)
     {
-        return new User(shop.Id, shop.UserId, shop.PasswordHash);
+        return new User(shop.Id, shop.UserId, shop.PasswordHash, ImmutableArray<Role>.Empty);
     }
 }
