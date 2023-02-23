@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Sellers.CommandModel;
@@ -35,8 +36,12 @@ public class UserController: Controller
     }
 
     [HttpGet("{id}/roles")]
-    public void GetRoles(Guid id)
+    public async Task<IActionResult> GetRoles(
+        Guid id,
+        [FromServices] IUserReader reader)
     {
-        
+        return await reader.FindUser(id) is User user 
+            ? Ok(user.Roles) 
+            : NotFound();
     }
 }

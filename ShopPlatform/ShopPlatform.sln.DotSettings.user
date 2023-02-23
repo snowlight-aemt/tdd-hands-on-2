@@ -7,14 +7,18 @@
 	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967294</s:Int64>
 	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentBuildToolPaths/=_002Fusr_002Flocal_002Fshare_002Fdotnet_002Fsdk_002F6_002E0_002E405_002FMSBuild_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">No</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4c93000c_002D9221_002D4e8c_002Db2ab_002Dc5ec6e6c604e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Sut_currently_Sets_Administrator_role" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1fd83802_002Dd475_002D404a_002Db876_002Dda3a7e7ebe69/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Get_specs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.QueryModel.ShopUserReader_specs.Sut_currently_Sets_Administrator_role&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.api.users.id.roles.Get_specs&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c2219959_002D852b_002D4f8a_002Db180_002D58afb45acec7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c2219959_002D852b_002D4f8a_002Db180_002D58afb45acec7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
+	
 	
 	
 	
