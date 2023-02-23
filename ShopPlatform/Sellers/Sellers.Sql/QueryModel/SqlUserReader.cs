@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +21,7 @@ public class SqlUserReader: IUserReader
         IQueryable<UserEntity> query = context.Users.AsNoTracking().Where(predicate);
         return await query.SingleOrDefaultAsync() switch
         {
-            UserEntity user => new User(user.Id, user.Username, user.PasswordHash),
+            UserEntity user => new User(user.Id, user.Username, user.PasswordHash, ImmutableArray<Role>.Empty),
             null => null,
         };
     }

@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Sellers.CommandModel;
 using Xunit;
 
 namespace Sellers.QueryModel;
@@ -67,4 +68,23 @@ public class ShopUserReader_specs
         User? actual = await sut.FindUser(wrongId);
         actual.Should().BeNull();
     }
+
+    [Theory, AutoSellersData]
+    public async Task Sut_currently_Sets_Administrator_role(
+        Func<SellersDbContext> contextFactory,
+        Shop shop,
+        ShopUserReader reader)
+    {
+        // Arrenge
+        SellersDbContext context = contextFactory.Invoke();
+        context.Shops.Add(shop);
+        await context.SaveChangesAsync();
+        
+        // Act
+        User? actual = await reader.FindUser(shop.Id);
+        
+        // Assert  
+        Role administrator = new (shop.Id, "Administrator");
+        actual!.Roles.Should().Contain(administrator);
+    } 
 }
