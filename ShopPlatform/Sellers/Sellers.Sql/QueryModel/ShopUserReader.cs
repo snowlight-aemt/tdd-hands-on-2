@@ -29,6 +29,7 @@ public sealed class ShopUserReader: IUserReader
 
     private static User? Translate(Shop shop)
     {
-        return new User(shop.Id, shop.UserId, shop.PasswordHash, ImmutableArray<Role>.Empty);
+        ImmutableArray<Role> administrator = ImmutableArray.Create(new Role(shop.Id, "Administrator"));
+        return new User(shop.Id, shop.UserId, shop.PasswordHash, administrator);
     }
 }
