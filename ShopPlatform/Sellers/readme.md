@@ -4,6 +4,9 @@ dotnet ef database update -v
 
 dotnet ef migrations add AddUsers --project Sellers.Sql --startup-project ./Sellers.Api
 dotnet ef database update --project Sellers.Sql --startup-project Sellers.Api 
+
+dotnet ef migrations add AddRoles --project ./Sellers/Sellers.Sql --startup-project ./Sellers/Sellers.Api
+dotnet ef database update --project Sellers.Sql --startup-project Sellers.Api 
 ```
 
 ```mermaid

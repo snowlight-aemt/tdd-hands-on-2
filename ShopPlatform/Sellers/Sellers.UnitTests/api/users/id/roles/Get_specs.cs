@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using FluentAssertions;
+using Sellers.Commands;
 using Xunit;
 
 namespace Sellers.api.users.id.roles;
