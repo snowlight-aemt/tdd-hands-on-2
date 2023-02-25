@@ -58,4 +58,31 @@ public class SqlUserReader_spec
         User? actual = await userReader.FindUser(user.Id);
         actual!.Should().BeNull();
     }
+    
+    [Theory, AutoSellersData]
+    public async Task Sut_returns_role_entities_with_matching_id(
+        Func<SellersDbContext> contextFactory,
+        SqlUserReader sut,
+        UserEntity user,
+        Role[] roles)
+    {
+        // arrange
+        using SellersDbContext context = contextFactory.Invoke();
+        context.Users.Add(user);
+        await context.SaveChangesAsync();
+        context.Roles.AddRange(from r in roles
+                                select new RoleEntity
+                                {
+                                    UserSequence = user.Sequence,
+                                    ShopId = r.ShopId,
+                                    RoleName = r.RoleName
+                                });
+        await context.SaveChangesAsync();
+
+        // act
+        User actual = (await sut.FindUser(user.Id))!;
+
+        // assert
+        actual.Roles.Should().BeEquivalentTo(roles);
+    }
 } 

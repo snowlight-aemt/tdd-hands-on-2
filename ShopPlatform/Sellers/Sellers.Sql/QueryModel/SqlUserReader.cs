@@ -18,11 +18,22 @@ public class SqlUserReader: IUserReader
     private async Task<User?> FindUser(Expression<Func<UserEntity, bool>> predicate)
     {
         SellersDbContext context = this.contextFactory.Invoke();
-        IQueryable<UserEntity> query = context.Users.AsNoTracking().Where(predicate);
-        return await query.SingleOrDefaultAsync() switch
+        IQueryable<UserEntity> query = context.Users
+            .Include(x => x.Roles)
+            .AsNoTracking()
+            .Where(predicate);
+
+        UserEntity? singleOrDefaultAsync = await query.SingleOrDefaultAsync();
+        return singleOrDefaultAsync switch
         {
-            UserEntity user => new User(user.Id, user.Username, user.PasswordHash, ImmutableArray<Role>.Empty),
-            null => null,
+            UserEntity user => new User(
+                user.Id, 
+                user.Username, 
+                user.PasswordHash, 
+                Roles: ImmutableArray.CreateRange(
+                    from r in user.Roles
+                    select new Role(r.ShopId, r.RoleName))),
+            _ => null,
         };
     }
 }

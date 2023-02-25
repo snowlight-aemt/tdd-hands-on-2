@@ -16,7 +16,8 @@ public sealed class SqlUserRepository : IUserRepository
         {
             Username = user.Username,
             Id = user.Id,
-            PasswordHash = user.PasswordHash
+            PasswordHash = user.PasswordHash,
+            // Roles = user.Roles,
         });
         await context.SaveChangesAsync();
     }
