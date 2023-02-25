@@ -1,4 +1,5 @@
 using System.Data.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sellers.CommandModel;
 
@@ -20,5 +21,13 @@ public sealed class SqlUserRepository : IUserRepository
             // Roles = user.Roles,
         });
         await context.SaveChangesAsync();
+    }
+
+    public async Task<bool> TryUpdate(Guid id, Func<User, User> reviser)
+    {
+        using SellersDbContext context = this.contextFactory.Invoke();
+        UserEntity? user = await context.Users.SingleOrDefaultAsync(x => x.Id == id);
+    
+        return user != null;
     }
 }

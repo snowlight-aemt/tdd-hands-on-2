@@ -20,4 +20,25 @@ public class SqlUserRepository_specs
         UserEntity? actual = await context.Users.SingleOrDefaultAsync(x => x.Id == user.Id);
         actual.Should().BeEquivalentTo(user, c => c.ExcludingMissingMembers());
     }
+
+    [Theory, AutoSellersData]
+    public async Task Sut_returns_true_if_user_exists(
+        SqlUserRepository sut,
+        User user)
+    {
+        await sut.Add(user);
+        bool actual = await sut.TryUpdate(user.Id, t => t);
+        
+        actual.Should().BeTrue();
+    }
+
+    [Theory, AutoSellersData]
+    public async Task Sut_returns_false_if_user_not_exists(
+        SqlUserRepository sut,
+        Guid userId)
+    {
+        bool actual = await sut.TryUpdate(userId, t => t);
+        
+        actual.Should().BeFalse();
+    }
 }
