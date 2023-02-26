@@ -8,6 +8,6 @@ public sealed record User(Guid Id, string Username, string PasswordHash, Immutab
     public User GrantRole(GrantRole command)
     {
         Role role = new (command.ShopId, command.RoleName);
-        return this with { Roles = ImmutableArray.Create(role) };
+        return this with { Roles = Roles.Add(role) };
     }
 }
