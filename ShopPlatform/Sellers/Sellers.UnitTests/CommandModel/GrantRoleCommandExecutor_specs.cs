@@ -29,6 +29,16 @@ public class GrantRoleCommandExecutor_specs
     }
 
     [Theory, AutoSellersData]
+    public async Task Sut_fails_if_user_not_exists(
+        GrantRoleCommandExecutor sut,
+        Guid userId,
+        GrantRole command)
+    {
+        Func<Task> aciton = () => sut.Execute(userId, command);
+        await aciton.Should().ThrowAsync<EntityNotFoundException>();
+    }
+
+    [Theory, AutoSellersData]
     public async Task Sut_currently_appends_role(
         InMemoryUserRepository repository,
         GrantRole command1,

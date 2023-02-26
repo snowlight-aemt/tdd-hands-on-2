@@ -10,6 +10,9 @@ public sealed class GrantRoleCommandExecutor
     public GrantRoleCommandExecutor(IUserRepository repository) 
         => this.repository = repository;
 
-    public Task Execute(Guid id, GrantRole command) 
-        => this.repository.TryUpdate(id, user => user.GrantRole(command));
+    public async Task Execute(Guid id, GrantRole command)
+    {
+        if (await this.repository.TryUpdate(id, user => user.GrantRole(command)) == false)
+            throw new EntityNotFoundException();
+    }
 }
