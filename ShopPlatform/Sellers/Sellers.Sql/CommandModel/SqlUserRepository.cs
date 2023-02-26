@@ -1,4 +1,3 @@
-using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Sellers.CommandModel;
@@ -26,8 +25,18 @@ public sealed class SqlUserRepository : IUserRepository
     public async Task<bool> TryUpdate(Guid id, Func<User, User> reviser)
     {
         using SellersDbContext context = this.contextFactory.Invoke();
-        UserEntity? user = await context.Users.SingleOrDefaultAsync(x => x.Id == id);
-    
-        return user != null;
+        if (await context.Users.SingleOrDefaultAsync(x => x.Id == id) is UserEntity entity)
+        {
+            User user = Mapper.Instance.Map<User>(entity);
+            User revision = reviser.Invoke(user);
+            Mapper.Instance.Map(revision, entity, typeof(User), typeof(UserEntity));
+            await context.SaveChangesAsync();
+            
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -7,11 +7,22 @@
 	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967294</s:Int64>
 	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentBuildToolPaths/=_002Fusr_002Flocal_002Fshare_002Fdotnet_002Fsdk_002F6_002E0_002E405_002FMSBuild_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">No</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=80128d2f_002De2c2_002D4a10_002Da238_002D51752e0577d8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SqlUserRepository_specs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0f0b834d_002D6b95_002D4b89_002D8c86_002Deacd6e8018c3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GrantRoleCommandExecutor_specs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.CommandModel.GrantRoleCommandExecutor_specs&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=336ca891_002D9b87_002D4616_002D9dd2_002Da6d74d43e168/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SqlUserRepository_specs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.CommandModel.SqlUserRepository_specs&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=afd12ed7_002D597a_002D49dd_002D8fb4_002D21e356bfa33b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SqlUserReader_spec" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.QueryModel.SqlUserReader_spec&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b479494d_002D25af_002D4166_002D9712_002Da05cdb9375b4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>

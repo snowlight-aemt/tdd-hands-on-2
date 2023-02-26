@@ -13,7 +13,8 @@ public sealed class AutoSellersDataAttribute : AutoDataAttribute
                 new SellersServerCustomization(),
                 new PasswordHasherCustomization(),
                 new SellersDbContextCustomization(),
-                new UserCustomization()
+                new UserCustomization(),
+                new UserRepositoryCustomization()
             )))
     {
     }
