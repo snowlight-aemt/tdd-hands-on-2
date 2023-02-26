@@ -10,9 +10,6 @@ public sealed class GrantRoleCommandExecutor
     public GrantRoleCommandExecutor(IUserRepository repository) 
         => this.repository = repository;
 
-    public Task Execute(Guid id, GrantRole command)
-    {
-        return this.repository.TryUpdate(id, user
-            => user with { Roles = ImmutableArray.Create(new Role(command.ShopId, command.RoleName)) });
-    }
+    public Task Execute(Guid id, GrantRole command) 
+        => this.repository.TryUpdate(id, user => user.GrantRole(command));
 }

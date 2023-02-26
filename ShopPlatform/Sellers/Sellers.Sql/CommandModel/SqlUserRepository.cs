@@ -28,8 +28,13 @@ public sealed class SqlUserRepository : IUserRepository
         if (await context.Users.SingleOrDefaultAsync(x => x.Id == id) is UserEntity entity)
         {
             User user = Mapper.Instance.Map<User>(entity);
-            User revision = reviser.Invoke(user);
-            Mapper.Instance.Map(revision, entity, typeof(User), typeof(UserEntity));
+            
+            Mapper.Instance.Map(
+                reviser.Invoke(user), 
+                entity, 
+                typeof(User), 
+                typeof(UserEntity));
+            
             await context.SaveChangesAsync();
             
             return true;
