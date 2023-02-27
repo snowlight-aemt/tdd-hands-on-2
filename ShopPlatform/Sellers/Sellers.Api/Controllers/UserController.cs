@@ -25,7 +25,7 @@ public class UserController: Controller
     }
     
     [HttpPost("{id}/create-user")]
-    [TypeFilter(typeof(invariantViolationFilter))]
+    [TypeFilter(typeof(InvariantViolationFilter))]
     public Task CreateUser(
         Guid id, 
         [FromBody] CreateUser command,
@@ -33,6 +33,17 @@ public class UserController: Controller
     )
     {
         return executor.Execute(id, command);
+    }
+
+    [HttpPost("{id}/grant-role")]
+    [TypeFilter(typeof(EntityNotFoundFilter))]
+    public Task GrantRole(
+        Guid id,
+        [FromBody] GrantRole grantRole,
+        [FromServices] GrantRoleCommandExecutor executor
+        )
+    {
+        return executor.Execute(id, grantRole);
     }
 
     [HttpGet("{id}/roles")]

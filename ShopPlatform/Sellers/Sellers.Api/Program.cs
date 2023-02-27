@@ -23,6 +23,7 @@ public class Program
 
         services.AddSingleton<IUserReader, BackwardCompatibleUserReader>();
         services.AddSingleton<IUserRepository, SqlUserRepository>();
+        services.AddSingleton<GrantRoleCommandExecutor>();
         services.AddSingleton<CreateUserCommandExecutor>();
 
         services.AddControllers();

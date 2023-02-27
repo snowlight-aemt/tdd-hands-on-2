@@ -4,13 +4,13 @@ using Sellers.CommandModel;
 
 namespace Sellers.Filters;
 
-public class InvariantViolationFilter: IExceptionFilter
+public class EntityNotFoundFilter: IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is InvariantViolationException)
+        if (context.Exception is EntityNotFoundException)
         {
-            context.Result = new BadRequestResult();
+            context.Result = new NotFoundResult();
         }
     }
 }
