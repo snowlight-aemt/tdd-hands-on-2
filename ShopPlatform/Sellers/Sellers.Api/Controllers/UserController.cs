@@ -55,4 +55,14 @@ public class UserController: Controller
             ? Ok(user.Roles) 
             : NotFound();
     }
+
+    [HttpPost("{id}/remove-role")]
+    [TypeFilter(typeof(EntityNotFoundFilter))]
+    public async Task RemoveRole(
+        Guid id,
+        [FromBody] RevokeRole revokeRole,
+        [FromServices] RevokeRoleCommandExecutor executor)
+    {
+        await executor.Execute(id, revokeRole);
+    }
 }

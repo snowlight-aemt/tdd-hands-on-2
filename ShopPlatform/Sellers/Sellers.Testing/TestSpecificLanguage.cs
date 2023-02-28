@@ -53,4 +53,13 @@ public static class TestSpecificLanguage
         HttpResponseMessage response = await server.CreateClient().GetAsync($"api/users/{userId}/roles");
         return await response.Content.ReadFromJsonAsync<ImmutableArray<Role>>();
     }
+    
+    public static async Task<HttpResponseMessage> RemoveRole(this SellersServer server, Guid userId, Guid shopId, string roleName)
+    {
+        HttpClient client = server.CreateClient();
+        string requestUri = $"api/users/{userId}/remove-role";
+        RevokeRole body = new (shopId, roleName);
+        
+        return await client.PostAsJsonAsync(requestUri, body);
+    }
 }
