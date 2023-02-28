@@ -13,13 +13,19 @@
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.QueryModel.SqlUserReader_spec&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.api.users.id.grant_role.Post_specs.Sut_currently_sets_role&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.CommandModel.RevokeRoleCommandExecutor_specs.Sut_revkes_role&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.CommandModel.RevokeRoleCommandExecutor_specs.Sut_revkes_role.Sut_revkes_role(sut: RevokeRoleCommandExecutor { }, contextFactory: Func`1 { Method = Sellers.SellersDbContext GetContext(), Target = null }, user: UserEntity { Id = 1f94cc71-3699-48e2-8b98-5d7c225790e8, PasswordHash = "PasswordHash0285b2c0-8822-4469-b5cd-06e0b578676e", Roles = [], Sequence = 0, Username = "Usernameb483960f-0326-4a1a-bee0-05f9f7fc6060" }, role: Role { ShopId = 415d00d0-685b-40bc-a80f-bac83d81e749, RoleName = RoleName885f1139-f63f-469f-b3bd-bb4cafbc17b2 })&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d2e5df17_002D6ae8_002D428d_002D9f00_002Dbd1aec75eae4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Post_specs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b0dfe6f0_002D4055_002D4785_002Da3b5_002D969bbb5941a9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RevokeRoleCommandExecutor_specs #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.api.users.id.grant_role.Post_specs&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2FB2AEDE-419C-4CF9-B6EF-B373DA36DA25::net6.0::Sellers.CommandModel.RevokeRoleCommandExecutor_specs&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e3ff3cad_002D4324_002D418f_002Db3cd_002De8584920c1f2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RevokeRoleCommandExecutor_specs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Solution /&gt;
+&lt;/SessionState&gt;</s:String>
+	
 	
 	
 	

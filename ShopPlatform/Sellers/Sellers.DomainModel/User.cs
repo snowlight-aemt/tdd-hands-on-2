@@ -10,4 +10,10 @@ public sealed record User(Guid Id, string Username, string PasswordHash, Immutab
         Role role = new (command.ShopId, command.RoleName);
         return this with { Roles = Roles.Add(role) };
     }
+    
+    public User RevokeRole(RevokeRole command)
+    {
+        Role role = new (command.ShopId, command.RoleName);
+        return this with { Roles = Roles.Remove(role) };
+    }
 }

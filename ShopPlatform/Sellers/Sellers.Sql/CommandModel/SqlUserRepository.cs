@@ -25,7 +25,7 @@ public sealed class SqlUserRepository : IUserRepository
     public async Task<bool> TryUpdate(Guid id, Func<User, User> reviser)
     {
         using SellersDbContext context = this.contextFactory.Invoke();
-        if (await context.Users.SingleOrDefaultAsync(x => x.Id == id) is UserEntity entity)
+        if (await context.Users.Include(x => x.Roles).SingleOrDefaultAsync(x => x.Id == id) is UserEntity entity)
         {
             User user = Mapper.Instance.Map<User>(entity);
             
