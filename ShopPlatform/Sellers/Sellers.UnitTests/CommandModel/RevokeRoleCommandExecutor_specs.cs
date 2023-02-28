@@ -45,4 +45,13 @@ public class RevokeRoleCommandExecutor_specs
         actual!.Roles.Should().Contain(role2);
     }
     
+    [Theory, AutoSellersData]
+    public async Task Sut_fails_if_user_not_exists(
+        RevokeRoleCommandExecutor sut,
+        UserEntity user,
+        Role role)
+    {
+        Func<Task> action = () => sut.Execute(user.Id, new RevokeRole(role.ShopId, role.RoleName));
+        await action.Should().ThrowAsync<EntityNotFoundException>();
+    }
 }
